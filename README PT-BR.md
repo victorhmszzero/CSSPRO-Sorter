@@ -1,4 +1,19 @@
-## PT-BR
+<div align="center">
+<h1>
+  <img src="/assets/Main-Icon.png" alt="Logo" width="30%">
+
+<b>CSS Style Sorter</b>
+
+[![JS](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](#) 
+[![VSCODE](https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)](#)
+
+</h1>
+
+Organize suas propriedades CSS com apenas um clique usando esta extensão para o **Visual Studio Code**.
+
+![assets/Preview - Ctrl Alt O.gif](/assets/Preview-Ctrl-Alt-O.gif)
+
+</div>
 
 **CSS Style Sorter** é uma extensão para o **Visual Studio Code** projetada para simplificar e agilizar a organização de propriedades em arquivos CSS. Ela automatiza o processo de reorganização de propriedades CSS com apenas um clique, seguindo uma lista pré-definida que é completamente personalizável.
 
@@ -8,9 +23,9 @@
 
 A ideia por trás do **CSS Style Sorter** surgiu da experiência de lidar com projetos web complexos, nos quais a organização eficiente das propriedades CSS era um desafio constante. A extensão foi desenvolvida para fornecer uma solução simples e rápida, permitindo uma organização com facilidade, economizando tempo e mantendo uma base de código mais limpa.
 
-### 💻 Instalação
+## 💻 Instalação
 
-#### Usando o Painel de Extensões
+### Usando o Painel de Extensões
 
 1. Abra o painel de extensões do **Visual Studio Code.** `Ctrl + Shift + X`
 2. Pesquise por **CSS Style Sorter**.
@@ -18,14 +33,14 @@ A ideia por trás do **CSS Style Sorter** surgiu da experiência de lidar com pr
 
    ![image](assets/install-button.png)
 
-#### Instalação Manual
+### Instalação Manual
 
 1. Baixe a versão desejada em [releases](https://github.com/victorhmszzero/Css-Style-Sorter/releases).
 2. Copie a pasta para **.vscode\extensions**
    >C:\Users\ SEU_NOME \ .vscode\extensions
 3. Reinicie o Visual Studio Code.
 
-### 🛠 Instruções
+## 🛠 Instruções
 Após instalar a extensão, abra um arquivo CSS.
 
 Você consegue iniciar a extensão de duas formas:
