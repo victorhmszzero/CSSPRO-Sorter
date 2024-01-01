@@ -12,7 +12,7 @@
 <p>Organize suas propriedades CSS com apenas um clique usando esta extensão para o <a href="https://code.visualstudio.com">Visual Studio Code</a></p>
 <p>Versão mínima suportada: 1.85.0</p>
 
-<a href="#"><img src="/assets/preview-ctrl-alt-o.gif" alt="Demonstração da Extensão"></a>
+<a href="#"><img src="https://github.com/victorhmszzero/CSSPRO-Sorter/blob/main/assets/preview-ctrl-alt-o.gif?raw=true" alt="Demonstração da Extensão"></a>
 
 </div>
 
@@ -61,7 +61,7 @@ Organize with CSSPRO Sorter
 
 <div align="center">
 
-[![Executando a Extensão](/assets/preview-ctrl-shit-p.gif)](#)
+[![Executando a Extensão](https://github.com/victorhmszzero/CSSPRO-Sorter/blob/main/assets/preview-ctrl-shift-p.gif?raw=true)](#)
 
 </div>
 
