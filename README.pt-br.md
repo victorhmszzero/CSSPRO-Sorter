@@ -1,10 +1,9 @@
-
 <div align="center">
 <h1>
-<a href="#"><img src="/assets/css-style-sorter-icon.png" alt="Logo" width="20%"></a>
+<a href="#"><img src="https://github.com/victorhmszzero/Css-Style-Sorter/blob/main/assets/csspro-sorter-icon.png?raw=true" alt="Logo" width="20%"></a>
 
-  <b>CSS Style Sorter</b>
-  
+<b>CSS Style Sorter</b>
+
 [![JavaScript Banner](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](#)
 [![Visual Studio Code Banner](https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)](#)
 
@@ -13,11 +12,12 @@
 <p>Organize suas propriedades CSS com apenas um clique usando esta extensão para o <a href="https://code.visualstudio.com">Visual Studio Code</a></p>
 <p>Versão mínima suportada: 1.85.0</p>
 
-   <a href="#"><img src="/assets/preview-ctrl-alt-o.gif" alt="Demonstração da Extensão"></a>
+<a href="#"><img src="/assets/preview-ctrl-alt-o.gif" alt="Demonstração da Extensão"></a>
 
 </div>
 
-## {  } Index
+## { } Index
+
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/victorhmszzero/Css-Style-Sorter)
 [![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/victorhmszzero/Css-Style-Sorter/blob/main/README.pt-br.md)
 
@@ -35,7 +35,7 @@ A ideia por trás do **CSS Style Sorter** surgiu da experiência de lidar com pr
 
 1. Abra o painel de extensões do **Visual Studio Code.** `Ctrl + Shift + X` ou `Cmd + Shift + X`
 2. Pesquise por **CSS Style Sorter**.
-4. Instale a extensão.
+3. Instale a extensão.
 
    [![Instalar Extensão](assets/install-button.png)](#)
 
@@ -43,10 +43,11 @@ A ideia por trás do **CSS Style Sorter** surgiu da experiência de lidar com pr
 
 1. Baixe a versão desejada em [releases](https://github.com/victorhmszzero/Css-Style-Sorter/releases).
 2. Copie a pasta para **.vscode\extensions**
-   >C:\Users\ SEU_NOME \ .vscode\extensions
+   > C:\Users\ SEU_NOME \ .vscode\extensions
 3. Reinicie o **Visual Studio Code**.
 
 ## 🛠 Instruções
+
 Após instalar a extensão, abra um arquivo CSS.
 
 Você consegue iniciar a extensão de duas formas:
@@ -57,13 +58,14 @@ Você consegue iniciar a extensão de duas formas:
 ```txt
 Organize with CSS Style Sorter
 ```
+
 <div align="center">
 
 [![Executando a Extensão](/assets/preview-ctrl-shit-p.gif)](#)
 
 </div>
 
-> *(Opcional) Configure a ordem de suas propriedades, em Extensions > CSS Style Sorter ⚙ > Extension Settings*.
+> _(Opcional) Configure a ordem de suas propriedades, em Extensions > CSS Style Sorter ⚙ > Extension Settings_.
 
 ## 🤝 Contribua
 
