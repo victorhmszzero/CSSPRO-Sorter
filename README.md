@@ -10,7 +10,7 @@
 
 </h1>
 
-  <p>Organize your CSS properties with just one click using this extension for **Visual Studio Code**.</p>
+  Organize your CSS properties with just one click using this extension for **Visual Studio Code**.
   
    <a href="#"><img src="/assets/preview-ctrl-alt-o.gif" alt="Extension Demonstration"></a>
 
