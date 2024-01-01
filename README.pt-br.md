@@ -10,7 +10,8 @@
 
 </h1>
 
-  Organize your CSS properties with just one click using this extension for **Visual Studio Code**.
+<p>Organize suas propriedades CSS com apenas um clique usando esta extensão para o <a href="https://code.visualstudio.com">Visual Studio Code</a></p>
+<p>Versão mínima suportada: 1.85.0</p>
 
    <a href="#"><img src="/assets/preview-ctrl-alt-o.gif" alt="Demonstração da Extensão"></a>
 
@@ -32,7 +33,7 @@ A ideia por trás do **CSS Style Sorter** surgiu da experiência de lidar com pr
 
 ### Usando o Painel de Extensões
 
-1. Abra o painel de extensões do **Visual Studio Code.** `Ctrl + Shift + X`
+1. Abra o painel de extensões do **Visual Studio Code.** `Ctrl + Shift + X` ou `Cmd + Shift + X`
 2. Pesquise por **CSS Style Sorter**.
 4. Instale a extensão.
 
@@ -43,15 +44,15 @@ A ideia por trás do **CSS Style Sorter** surgiu da experiência de lidar com pr
 1. Baixe a versão desejada em [releases](https://github.com/victorhmszzero/Css-Style-Sorter/releases).
 2. Copie a pasta para **.vscode\extensions**
    >C:\Users\ SEU_NOME \ .vscode\extensions
-3. Reinicie o Visual Studio Code.
+3. Reinicie o **Visual Studio Code**.
 
 ## 🛠 Instruções
 Após instalar a extensão, abra um arquivo CSS.
 
 Você consegue iniciar a extensão de duas formas:
 
-1. Usando o atalho `Ctrl + Alt + O`
-2. Navegando na guia **Help > Show All Commands** ou `Ctrl + Shift + P` e digitando:
+1. Usando o atalho `Ctrl + Alt + O` ou `Cmd + Alt + O`
+2. Navegando na guia **Help > Show All Commands** ou o atalho `Ctrl + Shift + P` ou `Cmd + Shift + P` e digitando:
 
 ```txt
 Organize with CSS Style Sorter
