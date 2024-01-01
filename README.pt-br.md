@@ -22,7 +22,7 @@
 
 **CSS Style Sorter** é uma extensão para o **Visual Studio Code** projetada para simplificar e agilizar a organização de propriedades em arquivos CSS. Ela automatiza o processo de reorganização de propriedades CSS com apenas um clique, seguindo uma lista pré-definida que é completamente personalizável.
 
-- Organize a partir de uma [lista pré-definida](https://github.com/victorhmszzero/Css-Style-Sorter/orderList.js) completamente personalizável!
+- Organize a partir de uma [lista pré-definida](https://github.com/victorhmszzero/Css-Style-Sorter/blob/main/orderList.js) completamente personalizável!
 - Remova linhas em branco desnecessárias.
 - Elimine propriedades duplicadas.
 
