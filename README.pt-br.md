@@ -18,12 +18,12 @@
 
 ## { } Index
 
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://https://github.com/victorhmszzero/CSSPRO-Sorter)
-[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://https://github.com/victorhmszzero/CSSPRO-Sorter/blob/main/README.pt-br.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/victorhmszzero/CSSPRO-Sorter)
+[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/victorhmszzero/CSSPRO-Sorter/blob/main/README.pt-br.md)
 
 **CSSPRO Sorter** é uma extensão para o **Visual Studio Code** projetada para simplificar e agilizar a organização de propriedades em arquivos CSS. Ela automatiza o processo de reorganização de propriedades CSS com apenas um clique, seguindo uma lista pré-definida que é completamente personalizável.
 
-- Organize a partir de uma [lista pré-definida](https://https://github.com/victorhmszzero/CSSPRO-Sorter/blob/main/orderList.js) completamente personalizável!
+- Organize a partir de uma [lista pré-definida](https://github.com/victorhmszzero/CSSPRO-Sorter/blob/main/orderList.js) completamente personalizável!
 - Remova linhas em branco desnecessárias.
 - Elimine propriedades duplicadas.
 
@@ -37,14 +37,7 @@ A ideia por trás do **CSSPRO Sorter** surgiu da experiência de lidar com proje
 2. Pesquise por **CSSPRO Sorter**.
 3. Instale a extensão.
 
-   [![Instalar Extensão](assets/install-button.png)](#)
-
-### Instalação Manual
-
-1. Baixe a versão desejada em [releases](https://https://github.com/victorhmszzero/CSSPRO-Sorter/releases).
-2. Copie a pasta para **.vscode\extensions**
-   > C:\Users\ SEU_NOME \ .vscode\extensions
-3. Reinicie o **Visual Studio Code**.
+   [![Instalar Extension](https://github.com/victorhmszzero/CSSPRO-Sorter/blob/main/assets/install-button.gif?raw=true)](#)
 
 ## 🛠 Instruções
 
@@ -69,8 +62,8 @@ Organize with CSSPRO Sorter
 
 ## 🤝 Contribua
 
-Encontrou um problema ou tem uma sugestão? Sinta-se à vontade para abrir uma [issue](https://https://github.com/victorhmszzero/CSSPRO-Sorter/issues) ou enviar um [pull request](https://https://github.com/victorhmszzero/CSSPRO-Sorter/pulls).
+Encontrou um problema ou tem uma sugestão? Sinta-se à vontade para abrir uma [issue](https://github.com/victorhmszzero/CSSPRO-Sorter/issues) ou enviar um [pull request](https://github.com/victorhmszzero/CSSPRO-Sorter/pulls).
 
 ## 📌 Licença
 
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](https://https://github.com/victorhmszzero/CSSPRO-Sorter/blob/main/LICENSE) para detalhes.
+Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](https://github.com/victorhmszzero/CSSPRO-Sorter/blob/main/LICENSE) para detalhes.
