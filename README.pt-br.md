@@ -1,6 +1,6 @@
 <div align="center">
 <h1>
-<a href="#"><img src="https://github.com/victorhmszzero/Css-Style-Sorter/blob/main/assets/csspro-sorter-icon.png?raw=true" alt="Logo" width="20%"></a>
+<a href="#"><img src="https://github.com/victorhmszzero/CSSPRO-Sorter/blob/main/assets/csspro-sorter-icon.png?raw=true" alt="Logo" width="20%"></a>
 
 <b>CSS Style Sorter</b>
 
