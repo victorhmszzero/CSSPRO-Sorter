@@ -18,12 +18,12 @@ async function processCss() {
 // Função para organizar as propriedades CSS
 async function organizeCssProperties() {
   const editor = vscode.window.activeTextEditor;
-  const document = editor?.document;
+  const document = editor && editor.document;
 
   if (editor && document) {
     // Obtém propriedades a serem organizadas das configurações da extensão
     const propertiesToOrganize = vscode.workspace
-      .getConfiguration("cssStyleSorter")
+      .getConfiguration("cssPROSorter")
       .get("propertiesToOrganize", []);
 
     // Obtém o texto do documento
@@ -93,7 +93,7 @@ function organizeProperties(properties, customPropertiesToOrganize) {
 // Função para remover propriedades CSS que não estão aninhadas
 function removeUnnestedProperties() {
   const editor = vscode.window.activeTextEditor;
-  const document = editor?.document;
+  const document = editor && editor.document;
 
   if (editor && document) {
     const text = document.getText();
@@ -150,7 +150,7 @@ function getRemainingProperties(cssBlock, organizedProperties) {
 // Função para manter a primeira ocorrência de propriedades com o mesmo valor
 function keepFirstOccurrenceWithSameValue() {
   const editor = vscode.window.activeTextEditor;
-  const document = editor?.document;
+  const document = editor && editor.document;
 
   if (editor && document) {
     const text = document.getText();
@@ -207,7 +207,7 @@ function keepFirstOccurrenceWithSameValue() {
 // Função para remover linhas em branco do CSS
 function removeBlankLines() {
   const editor = vscode.window.activeTextEditor;
-  const document = editor?.document;
+  const document = editor && editor.document;
 
   if (editor && document) {
     const text = document.getText();
@@ -253,38 +253,33 @@ async function removeBlankLinesAndFormat() {
  * @param {vscode.ExtensionContext} context
  */
 async function activate(context) {
-  console.log('Congratulations, your extension "css-style-sorter" is now active!');
+  console.log('Congratulations, your extension "csspro-sorter" is now active!');
 
-  // Registra o comando "css-style-sorter.OrganizeCSS"
-  let disposable = vscode.commands.registerCommand(
-    "css-style-sorter.OrganizeCSS",
-    async function () {
-      vscode.window.showInformationMessage("CSS Organized!");
-      try {
-        await processCss();
-      } catch (error) {
-        console.error(error);
-      }
+  // Registra o comando "csspro-sorter.OrganizeCSS"
+  let disposable = vscode.commands.registerCommand("csspro-sorter.OrganizeCSS", async function () {
+    vscode.window.showInformationMessage("CSS Organized!");
+    try {
+      await processCss();
+    } catch (error) {
+      console.error(error);
     }
-  );
+  });
 
-  // Registra o comando "css-style-sorter.resetSettings"
+  // Registra o comando "csspro-sorter.resetSettings"
   let resetDisposable = vscode.commands.registerCommand(
-    "css-style-sorter.resetSettings",
+    "csspro-sorter.resetSettings",
     async function () {
       // Reseta as configurações para os valores padrão
       await vscode.workspace
-        .getConfiguration("cssStyleSorter")
+        .getConfiguration("cssPROSorter")
         .update("propertiesToOrganize", undefined, true);
-      await vscode.workspace.getConfiguration("cssStyleSorter").update("resetSettings", true, true);
-      await vscode.workspace
-        .getConfiguration("cssStyleSorter")
-        .update("resetSettings", false, true);
+      await vscode.workspace.getConfiguration("cssPROSorter").update("resetSettings", true, true);
+      await vscode.workspace.getConfiguration("cssPROSorter").update("resetSettings", false, true);
 
       // Exibe uma mensagem informando que é necessário reiniciar o VS Code
       const restartMessage = "Please restart VS Code to apply the settings reset.";
       vscode.window.showInformationMessage(
-        "CSS Style Sorter settings reset to default. " + restartMessage
+        "CSSPRO Sorter settings reset to default. " + restartMessage
       );
     }
   );
@@ -294,16 +289,16 @@ async function activate(context) {
 
   // Lida com a redefinição ao ativar a extensão
   const shouldResetSettings = vscode.workspace
-    .getConfiguration("cssStyleSorter")
+    .getConfiguration("cssPROSorter")
     .get("resetSettings", false);
   if (shouldResetSettings) {
     // Reseta as configurações para os valores padrão
     await vscode.workspace
-      .getConfiguration("cssStyleSorter")
+      .getConfiguration("cssPROSorter")
       .update("propertiesToOrganize", undefined, true);
-    await vscode.workspace.getConfiguration("cssStyleSorter").update("resetSettings", false, true);
+    await vscode.workspace.getConfiguration("cssPROSorter").update("resetSettings", false, true);
 
-    vscode.window.showInformationMessage("CSS Style Sorter settings reset to default.");
+    vscode.window.showInformationMessage("CSSPRO Sorter settings reset to default.");
   }
 }
 
