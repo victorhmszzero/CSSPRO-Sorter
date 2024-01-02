@@ -1,9 +1,19 @@
 # Change Log
 
-All notable changes to the "CSSPRO Sorter" extension will be documented in this file.
+All notable changes to the **CSSPRO Sorter** extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+# Changelog
 
-## [Unreleased]
+## [0.1.2]
 
-- Initial release
+- **Add:** integration with default formatter
+- **Fix:** selectors like `@media` formatting bugs fixed:
+- **Fix:** resolved bugs related to formatting when dealing with **CSS custom properties**.
+
+## [0.1.1]
+
+- **Update:** The `README.md` file has been updated with relevant informations.
+
+## [0.1.0]
+
+- **Initial release:** The CSSPRO Sorter extension is now available, providing essential features for CSS formatting.
