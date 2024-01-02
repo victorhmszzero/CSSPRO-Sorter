@@ -4,7 +4,7 @@ All notable changes to the **CSSPRO Sorter** extension will be documented in thi
 
 # Changelog
 
-## [0.1.2]
+## [0.2.0]
 
 - **Add:** integration with default formatter
 - **Fix:** selectors like `@media` formatting bugs fixed:
