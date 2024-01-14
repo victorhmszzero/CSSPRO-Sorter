@@ -4,7 +4,7 @@
 
 <b>CSSPRO Sorter</b>
 
-[![JavaScript Banner](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](#)
+[![CSS3 Banner](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)](#)
 [![Visual Studio Code Banner](https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)](#)
 
 </h1>
@@ -22,19 +22,37 @@
 
 **CSSPRO Sorter** is an extension for Visual Studio Code designed to simplify and speed up the organization of properties in CSS files. It automates the process of rearranging CSS properties with just one click, following a pre-defined list that is fully customizable.
 
-- Organize from a fully customizable [pre-defined list](https://github.com/victorhmszzero/CSSPRO-Sorter/blob/main/orderList.js)!
-- Remove unnecessary blank lines.
+- Organize from a fully customizable [pre-defined list](https://github.com/victorhmszzero/CSSPRO-Sorter/blob/main/orderList.js);
+- Remove unnecessary blank lines;
 - Eliminate duplicate properties.
+
+[![Preview Before vs After Using the Extension](https://github.com/victorhmszzero/CSSPRO-Sorter/blob/main/assets/preview-beforeXafter.png)](#)
 
 The idea behind **CSSPRO Sorter** came from dealing with complex web projects where efficient organization of CSS properties was a constant challenge. The extension was developed to provide a simple and quick solution, allowing for easy organization, saving time, and maintaining a cleaner codebase.
 
+<div align="center">
+
+#### Made with:
+
+[![JavaScript Banner](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](#)
+![Visual Studio Code API Banner](https://img.shields.io/badge/VSCODE%20API-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+
+</div>
+
 ## 💻 Installation
 
-1. Open the **Visual Studio Code** Extensions Panel `Ctrl + Shift + X` or `Cmd + Shift + X`
-2. Search for **CSSPRO Sorter**.
+### Using VSCode:
+
+1. Open the **Visual Studio Code** Extensions Panel `Ctrl + Shift + X` or `Cmd + Shift + X`;
+2. Search for **CSSPRO Sorter**;
 3. Install the extension.
 
    [![Install Extension](https://github.com/victorhmszzero/CSSPRO-Sorter/blob/main/assets/install-button.gif?raw=true)](#)
+
+### Links:
+
+- [Visual Studio MarketPlace](https://marketplace.visualstudio.com/items?itemName=c9ee4938-81a5-6fc7-91ad-3b99cf70bcee.csspro-sorter)
+- [Releases](https://github.com/victorhmszzero/CSSPRO-Sorter/releases)
 
 ## 🛠 Instructions
 
@@ -55,7 +73,7 @@ Organize with CSSPRO Sorter
 
 </div>
 
-_(Optional) Configure the order of your properties in Extensions > CSSPRO Sorter ⚙ > Extension Settings._
+> _(Optional) Configure the order of your properties in **Extensions > CSSPRO Sorter ⚙ > Extension Settings**._
 
 ## 🤝 Contribute
 

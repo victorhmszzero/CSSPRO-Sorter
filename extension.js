@@ -1,23 +1,119 @@
 const vscode = require("vscode");
 const defaultOrderList = require("./orderList");
+/** * @param {vscode.ExtensionContext} context */
 
-// * Function to process CSS properties
-async function processCss() {
-  try {
-    // Call various functions to organize and clean CSS
-    await organizeCssProperties();
-    await removeUnnestedProperties();
-    await keepFirstOccurrenceWithSameValue();
-    await removeBlankLines();
-    await removeIncorrectlyOrganizedProperties();
-    await removeBlankLinesAndFormat();
-  } catch (error) {
-    // Handle errors if necessary
-    console.error(error);
+async function activate(context) {
+  console.log('Congratulations, your extension "csspro-sorter" is now active!');
+
+  // Registers the command "csspro-sorter.OrganizeCSS"
+  let disposable = vscode.commands.registerCommand("csspro-sorter.OrganizeCSS", async function () {
+    vscode.window.showInformationMessage("CSS Organized!");
+    try {
+      await processCss();
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  // Registers the command "csspro-sorter.resetSettings"
+  let resetDisposable = vscode.commands.registerCommand(
+    "csspro-sorter.resetSettings",
+    async function () {
+      // Resets the settings to default values
+      await vscode.workspace
+        .getConfiguration("cssPROSorter")
+        .update("propertiesToOrganize", undefined, true);
+      await vscode.workspace.getConfiguration("cssPROSorter").update("resetSettings", true, true);
+      await vscode.workspace.getConfiguration("cssPROSorter").update("resetSettings", false, true);
+
+      // Displays a message indicating that it is necessary to restart VS Code
+      const restartMessage = "Please restart VS Code to apply the settings reset.";
+      vscode.window.showInformationMessage(
+        "CSSPRO Sorter settings reset to default. " + restartMessage
+      );
+    }
+  );
+
+  // Adds the commands to the list of subscriptions
+  context.subscriptions.push(disposable, resetDisposable);
+
+  // Handles the reset when activating the extension
+  const shouldResetSettings = vscode.workspace
+    .getConfiguration("cssPROSorter")
+    .get("resetSettings", false);
+  if (shouldResetSettings) {
+    // Resets the settings to default values
+    await vscode.workspace
+      .getConfiguration("cssPROSorter")
+      .update("propertiesToOrganize", undefined, true);
+    await vscode.workspace.getConfiguration("cssPROSorter").update("resetSettings", false, true);
+
+    vscode.window.showInformationMessage("CSSPRO Sorter settings reset to default.");
   }
 }
 
-// * Function to organize CSS properties
+module.exports = {
+  activate,
+};
+
+// * Main Function
+async function processCss() {
+  try {
+    await formatStyleSheet();
+
+    // * Organize Funcions
+    await organizeCssProperties();
+    await removeDuplicateProperties();
+
+    // ! Fix Bug transform selectors in properties
+    await removeEmptyLines();
+    await organizePropertiesBasedOnConflits();
+
+    await formatStyleSheet();
+  } catch (error) {
+    console.error(error);
+  }
+}
+/* ---------------------------------------------------------------------------------- */
+/* ------------------- Remove empty lines and format the document ------------------- */
+/* ---------------------------------------------------------------------------------- */
+
+async function formatStyleSheet() {
+  await removeEmptyLines();
+  await vscode.commands.executeCommand("editor.action.formatDocument");
+}
+
+/* ------------------------------- Remove empty lines ------------------------------- */
+
+function removeEmptyLines() {
+  const editor = vscode.window.activeTextEditor;
+  const document = editor && editor.document;
+
+  if (editor && document) {
+    const text = document.getText();
+    let newText = "";
+
+    for (const line of text.split("\n")) {
+      if (line.trim() !== "") {
+        newText += line + "\n";
+      }
+    }
+
+    // Replace the original content of the document with the modified content
+    return editor.edit((editBuilder) => {
+      const startPosition = new vscode.Position(0, 0);
+      const endPosition = new vscode.Position(document.lineCount + 1, 0);
+      editBuilder.replace(new vscode.Range(startPosition, endPosition), newText.trim());
+    });
+  }
+
+  return Promise.resolve();
+}
+
+/* ---------------------------------------------------------------------------------- */
+/* ---------------------------- Organize Css Properties ----------------------------- */
+/* ---------------------------------------------------------------------------------- */
+
 async function organizeCssProperties() {
   const editor = vscode.window.activeTextEditor;
   const document = editor && editor.document;
@@ -78,7 +174,8 @@ async function organizeCssProperties() {
   return Promise.resolve();
 }
 
-// * Function to organize properties based on a predefined order
+/* ----------------- Organize properties based on a predefined order ---------------- */
+
 function organizeProperties(properties, customPropertiesToOrganize) {
   // Create an object to track already seen properties
   const seenProperties = new Set();
@@ -117,107 +214,11 @@ function organizeProperties(properties, customPropertiesToOrganize) {
   return organizedProperties.trim() + "\n" + remainingProperties.trim();
 }
 
-// * Function to remove non-nested CSS properties
-async function removeUnnestedProperties() {
-  const editor = vscode.window.activeTextEditor;
-  const document = editor && editor.document;
+/* ---------------------------------------------------------------------------------- */
+/* ------------------------- Remove duplicate CSS properties ------------------------ */
+/* ---------------------------------------------------------------------------------- */
 
-  if (editor && document) {
-    const text = document.getText();
-    let insideBlock = false;
-
-    // Modify the text by removing non-nested properties
-    const newText = text
-      .split("\n")
-      .map((line) => {
-        if (line.includes("{")) {
-          insideBlock = true;
-          return line;
-        }
-
-        if (line.includes("}")) {
-          insideBlock = false;
-          return line;
-        }
-
-        if (insideBlock) {
-          return line;
-        }
-
-        return line.replace(/(?<!\w|\#|\.)\s*([^{};]+)\s*:\s*([^{};]+)\s*;/g, "");
-      })
-      .join("\n");
-
-    // Replace the original content of the document with the modified content
-    return editor.edit((editBuilder) => {
-      const startPosition = new vscode.Position(0, 0);
-      const endPosition = new vscode.Position(document.lineCount + 1, 0);
-      return editBuilder.replace(new vscode.Range(startPosition, endPosition), newText);
-    });
-  }
-
-  return Promise.resolve();
-}
-
-// * Function to keep the first occurrence of properties with the same value
-async function keepFirstOccurrenceWithSameValue() {
-  const editor = vscode.window.activeTextEditor;
-  const document = editor && editor.document;
-
-  if (editor && document) {
-    const text = document.getText();
-    let insideBlock = false;
-    let propertiesMap = new Map();
-
-    // Modify the text by keeping the first occurrence of properties with the same value
-    const newText = text
-      .split("\n")
-      .map((line) => {
-        if (line.includes("{")) {
-          insideBlock = true;
-          propertiesMap = new Map();
-          return line;
-        }
-
-        if (line.includes("}")) {
-          insideBlock = false;
-          return line;
-        }
-
-        if (insideBlock) {
-          const properties = line.match(/(?<!\w|\#|\.)\s*([^{};]+)\s*:\s*([^{};]+)\s*;/g);
-          if (properties) {
-            const updatedProperties = properties.reduce((acc, property) => {
-              const [key, value] = property.split(":").map((part) => part.trim());
-              if (!propertiesMap.has(key)) {
-                propertiesMap.set(key, value);
-                acc.push(property);
-              }
-              return acc;
-            }, []);
-
-            // If there are unique properties, keep the line; otherwise, remove the line
-            return updatedProperties.length > 0 ? updatedProperties.join("\n") : "";
-          }
-        }
-
-        return line;
-      })
-      .join("\n");
-
-    // Replace the original content of the document with the modified content
-    return editor.edit((editBuilder) => {
-      const startPosition = new vscode.Position(0, 0);
-      const endPosition = new vscode.Position(document.lineCount + 1, 0);
-      editBuilder.replace(new vscode.Range(startPosition, endPosition), newText);
-    });
-  }
-
-  return Promise.resolve();
-}
-
-// ! Simple function to remove blank lines and enhance readability for removeIncorrectlyOrganizedProperties()
-function removeBlankLines() {
+function removeDuplicateProperties() {
   const editor = vscode.window.activeTextEditor;
   const document = editor && editor.document;
 
@@ -226,16 +227,19 @@ function removeBlankLines() {
     let newText = "";
 
     let insideBraces = false;
+    let linesWithinBlock = new Set();
 
     for (const line of text.split("\n")) {
       const trimmedLine = line.trim();
 
       if (trimmedLine.includes("{")) {
         insideBraces = true;
+        linesWithinBlock = new Set();
       }
 
-      if (!insideBraces || trimmedLine !== "") {
+      if (!insideBraces || !linesWithinBlock.has(trimmedLine)) {
         newText += line + "\n";
+        linesWithinBlock.add(trimmedLine);
       }
 
       if (trimmedLine.includes("}")) {
@@ -254,115 +258,122 @@ function removeBlankLines() {
   return Promise.resolve();
 }
 
-// * Function to remove misplaced selectors within CSS blocks, preserving the original ones
-async function removeIncorrectlyOrganizedProperties() {
+/* ---------------------------------------------------------------------------------- */
+/* ------------------- Fix Bug transform selectors in properties -------------------- */
+/* ---------------------------------------------------------------------------------- */
+
+async function organizePropertiesBasedOnConflits() {
+  const count = countLinesWithCommaAndColon();
+
+  if (count > 0) {
+    for (let i = 0; i < count; i++) {
+      await yourOrganizePropertiesFunction();
+    }
+  }
+}
+
+async function yourOrganizePropertiesFunction() {
+  await separateLastPropertyIfIncomplete();
+  await removeEverythingBeforeClosingBrace();
+}
+
+/* -------------------- Separate selectors placed like properties ------------------- */
+
+function separateLastPropertyIfIncomplete() {
   const editor = vscode.window.activeTextEditor;
   const document = editor && editor.document;
 
   if (editor && document) {
-    // Get the text from the document
     const text = document.getText();
+    const lines = text.split("\n");
 
-    // Split the text into CSS blocks
-    const cssBlocks = text.split(/(?=\s*{[^}]*})/);
+    let newText = "";
+    let previousLineHadSemicolon = false;
 
-    if (cssBlocks) {
-      // Check each CSS block
-      cssBlocks.forEach((cssBlock, index) => {
-        // Check if the block contains "{" but not "{"
-        if (/{[^{}]*}/.test(cssBlock) && !/{[^{}]*{/.test(cssBlock)) {
-          // Remove lines starting with "@" or "." (ignoring whitespace)
-          const lines = cssBlock.split("\n");
-          const updatedLines = lines.filter((line, lineIndex) => {
-            const trimmedLine = line.trim();
+    for (let i = 0; i < lines.length; i++) {
+      const currentLine = lines[i].trim();
 
-            // Check if the line starts with "@" or "." and does not contain "{" or "}" at the end
-            if (
-              (trimmedLine.startsWith("@") || trimmedLine.startsWith(".")) &&
-              lineIndex < lines.length - 1 && // Check if it is not the last line of the block
-              !lines[lineIndex + 1].trim().startsWith("{")
-            ) {
-              return false; // Remove the line
-            }
-
-            return true; // Preserve the line
-          });
-
-          // Update the CSS block in the original text
-          cssBlocks[index] = updatedLines.join("\n");
+      if (currentLine.includes("}")) {
+        // Check if the previous line does not end with a semicolon
+        if (!previousLineHadSemicolon) {
+          // Remove the previous line
+          newText = newText.trim();
         }
-      });
+      }
 
-      // Replace the original content of the document with the modified content
-      editor.edit((editBuilder) => {
-        const startPosition = new vscode.Position(0, 0);
-        const endPosition = new vscode.Position(document.lineCount + 1, 0);
-        editBuilder.replace(new vscode.Range(startPosition, endPosition), cssBlocks.join("\n"));
-      });
+      // Add the current line to the modified text
+      newText += currentLine + "\n";
+
+      // Update the flag for the next iteration
+      previousLineHadSemicolon = currentLine.endsWith(";");
     }
+
+    // Replace the original content of the document with the modified content
+    return editor.edit((editBuilder) => {
+      const startPosition = new vscode.Position(0, 0);
+      const endPosition = new vscode.Position(document.lineCount + 1, 0);
+      editBuilder.replace(new vscode.Range(startPosition, endPosition), newText.trim());
+    });
+  }
+
+  return Promise.resolve();
+}
+
+/* --------------------- Remove selectors placed like properties -------------------- */
+
+function removeEverythingBeforeClosingBrace() {
+  const editor = vscode.window.activeTextEditor;
+  const document = editor && editor.document;
+
+  if (editor && document) {
+    const text = document.getText();
+    const lines = text.split("\n");
+
+    let newText = "";
+
+    for (let i = 0; i < lines.length; i++) {
+      const currentLine = lines[i].trim();
+
+      if (currentLine.endsWith("}") && currentLine !== "}}") {
+        // The line ends with "}" and is not "}}"
+        // Keep only the last "}"
+        newText += "}" + "\n";
+      } else {
+        // Keep the line as it is
+        newText += currentLine + "\n";
+      }
+    }
+
+    // Replace the original content of the document with the modified content
+    return editor.edit((editBuilder) => {
+      const startPosition = new vscode.Position(0, 0);
+      const endPosition = new vscode.Position(document.lineCount + 1, 0);
+      editBuilder.replace(new vscode.Range(startPosition, endPosition), newText.trim());
+    });
+  }
+
+  return Promise.resolve();
+}
+
+/* ---------- Define how many times need to fix the separated "properties" ---------- */
+
+function countLinesWithCommaAndColon() {
+  const editor = vscode.window.activeTextEditor;
+
+  if (editor) {
+    const text = editor.document.getText();
+    const lines = text.split("\n");
+
+    let count = 0;
+
+    for (const line of lines) {
+      if (line.includes(",") && line.includes(":")) {
+        count++;
+      }
+    }
+    return count;
+  } else {
+    vscode.window.showErrorMessage("Nenhum editor ativo.");
+    return 0;
   }
 }
-
-// * Function to remove blank lines and format the document
-async function removeBlankLinesAndFormat() {
-  await removeBlankLines();
-  await vscode.commands.executeCommand("editor.action.formatDocument");
-}
-
-// * Function activated when the extension is started
-/** * @param {vscode.ExtensionContext} context */
-
-async function activate(context) {
-  console.log('Congratulations, your extension "csspro-sorter" is now active!');
-
-  // Registers the command "csspro-sorter.OrganizeCSS"
-  let disposable = vscode.commands.registerCommand("csspro-sorter.OrganizeCSS", async function () {
-    vscode.window.showInformationMessage("CSS Organized!");
-    try {
-      await processCss();
-    } catch (error) {
-      console.error(error);
-    }
-  });
-
-  // Registers the command "csspro-sorter.resetSettings"
-  let resetDisposable = vscode.commands.registerCommand(
-    "csspro-sorter.resetSettings",
-    async function () {
-      // Resets the settings to default values
-      await vscode.workspace
-        .getConfiguration("cssPROSorter")
-        .update("propertiesToOrganize", undefined, true);
-      await vscode.workspace.getConfiguration("cssPROSorter").update("resetSettings", true, true);
-      await vscode.workspace.getConfiguration("cssPROSorter").update("resetSettings", false, true);
-
-      // Displays a message indicating that it is necessary to restart VS Code
-      const restartMessage = "Please restart VS Code to apply the settings reset.";
-      vscode.window.showInformationMessage(
-        "CSSPRO Sorter settings reset to default. " + restartMessage
-      );
-    }
-  );
-
-  // Adds the commands to the list of subscriptions
-  context.subscriptions.push(disposable, resetDisposable);
-
-  // Handles the reset when activating the extension
-  const shouldResetSettings = vscode.workspace
-    .getConfiguration("cssPROSorter")
-    .get("resetSettings", false);
-  if (shouldResetSettings) {
-    // Resets the settings to default values
-    await vscode.workspace
-      .getConfiguration("cssPROSorter")
-      .update("propertiesToOrganize", undefined, true);
-    await vscode.workspace.getConfiguration("cssPROSorter").update("resetSettings", false, true);
-
-    vscode.window.showInformationMessage("CSSPRO Sorter settings reset to default.");
-  }
-}
-
-// * Exports the activate function
-module.exports = {
-  activate,
-};
